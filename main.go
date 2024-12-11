@@ -3,17 +3,19 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	// "io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"sync"
 	"time"
 
+	"uptime_monitor/version"
+
 	"github.com/go-gomail/gomail"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"uptime_monitor/version"
 )
 
 type Config struct {
@@ -62,7 +64,10 @@ func main() {
 
 	fmt.Printf("Uptime Monitor Version: %s\n", version.AppVersion)
 	// load config
-	config := loadConfig("config.json")
+	config, err := loadConfig("config.json")
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
+	}
 
 	// start prometheus metrics server
 	go func() {
@@ -83,24 +88,24 @@ func main() {
 	wg.Wait()
 }
 
-func loadConfig(filename string) Config {
-	file, err := os.Open(filename)
+func loadConfig(filePath string) (*Config, error) {
+	// Read the raw config file
+	rawConfig, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		log.Fatalf("Failed to open config file: %v", err)
-	}
-	defer file.Close()
-
-	data, err := io.ReadAll(file)
-	if err != nil {
-		log.Fatalf("Failed to read config file: %v", err)
+		return nil, fmt.Errorf("failed to read config file: %w", err)
 	}
 
+	// Replace placeholders with environment variables
+	processedConfig := os.ExpandEnv(string(rawConfig))
+
+	// Unmarshal into the Config struct
 	var config Config
-	if err := json.Unmarshal(data, &config); err != nil {
-		log.Fatalf("Failed to parse config file: %v", err)
+	err = json.Unmarshal([]byte(processedConfig), &config)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse config file: %w", err)
 	}
 
-	return config
+	return &config, nil
 }
 
 func pollWebsite(site Website, emailConfig Email) {

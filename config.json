@@ -15,12 +15,10 @@
         "poll_interval": 60,
         "custodians": ["ken88012@gmail.com", "keramsey@nmsu.edu","kristopher.bonefont@gmail.com"]
       }
-
-
     ],
     "email": {
       "smtp_host": "${SMTP_HOST}", 
-      "smtp_port": "${SMTP_PORT}",
+      "smtp_port": 587,
       "username": "${SMTP_USERNAME}",
       "password": "${SMTP_PASSWORD}"
     }
