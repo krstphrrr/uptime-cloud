@@ -73,7 +73,7 @@ func main() {
 	
 	fmt.Printf("Using smtp host: %s\n", config.Email.SMTPHost)
 	fmt.Printf("Using smtp port: %d\n", config.Email.SMTPPort)
-	
+
 	// start prometheus metrics server
 	go func() {
 		http.Handle("/metrics", promhttp.Handler())
@@ -153,6 +153,7 @@ func sendAlert(emailConfig Email, custodians []string, url string) {
 		log.Println("No valid recipients for the alert email.")
 		return
 	}
+	fmt.Printf("Custodians pre sending: %v", recipients)
 
 	message.SetHeader("To", recipients...) // Spread the recipients slice
 
