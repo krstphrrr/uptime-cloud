@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	// "io"
-	"io/ioutil"
+	// "io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -95,7 +95,7 @@ func main() {
 
 func loadConfig(filePath string) (*Config, error) {
 	// Read the raw config file
-	rawConfig, err := ioutil.ReadFile(filePath)
+	rawConfig, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read config file: %w", err)
 	}
@@ -123,8 +123,10 @@ func pollWebsite(site Website, emailConfig Email) {
 		if err != nil || resp.StatusCode != 200 {
 			log.Printf("Website DOWN: %s (%v)", site.URL, err)
 			status = 0.0
-			// send mail
-			sendAlert(emailConfig, site.Custodians, site.URL) 
+
+			// Log and send email
+			log.Printf("Custodians for %s: %v", site.URL, site.Custodians)
+			sendAlert(emailConfig, site.Custodians, site.URL)
 		} else {
 			log.Printf("Website UP: %s (%d)", site.URL, resp.StatusCode)
 			status = 1.0
@@ -136,6 +138,7 @@ func pollWebsite(site Website, emailConfig Email) {
 		time.Sleep(time.Duration(site.PollInterval) * time.Second)
 	}
 }
+
 // mail handler
 func sendAlert(emailConfig Email, custodians []string, url string) {
 	dialer := gomail.NewDialer(emailConfig.SMTPHost, emailConfig.SMTPPort, emailConfig.Username, emailConfig.Password)
@@ -166,6 +169,7 @@ func sendAlert(emailConfig Email, custodians []string, url string) {
 func validateEmails(emails []string) []string {
 	validEmails := []string{}
 	for _, email := range emails {
+		log.Printf("Processing email: %s", email)
 		if email != "" && strings.Contains(email, "@") {
 			validEmails = append(validEmails, email)
 		} else {
