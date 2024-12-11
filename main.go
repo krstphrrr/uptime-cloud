@@ -70,7 +70,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
 	}
-
+	
+	fmt.Printf("Using smtp host: %s\n", config.Email.SMTPHost)
+	fmt.Printf("Using smtp port: %d\n", config.Email.SMTPPort)
+	
 	// start prometheus metrics server
 	go func() {
 		http.Handle("/metrics", promhttp.Handler())
@@ -86,8 +89,6 @@ func main() {
 			pollWebsite(site, config.Email)
 		}(website)
 	}
-	fmt.Printf("Using smtp host: %s\n", config.Email.SMTPHost)
-	fmt.Printf("Using smtp port: %s\n", config.Email.SMTPPort)
 
 
 	wg.Wait()
