@@ -13,6 +13,7 @@ import (
 	"github.com/go-gomail/gomail"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"uptime_monitor/version"
 )
 
 type Config struct {
@@ -58,6 +59,8 @@ func init() {
 }
 
 func main() {
+
+	fmt.Printf("Uptime Monitor Version: %s\n", version.AppVersion)
 	// load config
 	config := loadConfig("config.json")
 
