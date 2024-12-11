@@ -2,18 +2,25 @@
     "websites": [
       {
         "url": "https://landscapedatacommons.org",
-        "poll_interval": 5,
+        "poll_interval": 60,
         "custodians": ["kristopher.bonefont@gmail.com"]
       },
       {
         "url": "https://devapi.landscapedatacommons.org",
-        "poll_interval": 5,
+        "poll_interval": 60,
         "custodians": ["bonefont.work@gmail.com"]
+      },
+      {
+        "url": "https://landecology.org",
+        "poll_interval": 60,
+        "custodians": ["ken88012@gmail.com", "keramsey@nmsu.edu","kristopher.bonefont@gmail.com"]
       }
+
+
     ],
     "email": {
-      "smtp_host": "smtp.gmail.com", 
-      "smtp_port": 587,
+      "smtp_host": "${SMTP_HOST}", 
+      "smtp_port": "${SMTP_PORT}",
       "username": "${SMTP_USERNAME}",
       "password": "${SMTP_PASSWORD}"
     }

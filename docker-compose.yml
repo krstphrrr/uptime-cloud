@@ -8,6 +8,8 @@ services:
     environment:
      - SMTP_USERNAME
      - SMTP_PASSWORD
+     - SMTP_HOST
+     - SMTP_PORT
     logging:
       driver: "json-file"
       options:
@@ -17,8 +19,8 @@ services:
       - "8080:8080"  # Expose Prometheus metrics
     volumes:
       - ./config.json:/app/config.json:ro  # Bind
-    networks:
-      - loki-net
-networks:
-  loki-net:
-    external: true
+#     networks:
+#       - loki-net
+# networks:
+#   loki-net:
+#     external: true

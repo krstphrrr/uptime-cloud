@@ -52,5 +52,5 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            docker service update uptime-monitor_service \
+            docker service update uptime_uptime_monitor \
             --image=docker.io/landscapedatacommons/uptime-monitor:${{ steps.extract_version.outputs.EXTRACTED_VERSION }}
