@@ -1,0 +1,21 @@
+{
+    "websites": [
+      {
+        "url": "https://landscapedatacommons.org",
+        "poll_interval": 5,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://devapi.landscapedatacommons.org",
+        "poll_interval": 5,
+        "custodians": ["bonefont.work@gmail.com"]
+      }
+    ],
+    "email": {
+      "smtp_host": "smtp.gmail.com", 
+      "smtp_port": 587,
+      "username": "${SMTP_USERNAME}",
+      "password": "${SMTP_PASSWORD}"
+    }
+  }
+  

@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  uptime_monitor:
+    image: landscapedatacommons/uptime_monitor:1.0.0  
+    build:
+      context: .
+    environment:
+     - SMTP_USERNAME
+     - SMTP_PASSWORD
+    # missing shortened json logs
+    ports:
+      - "8080:8080"  # Expose Prometheus metrics
+    volumes:
+      - ./config.json:/app/config.json:ro  # Bind
+    networks:
+      - loki-net
+networks:
+  loki-net:
+    external: true
