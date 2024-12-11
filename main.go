@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
 	// "io"
 	"io/ioutil"
 	"log"
@@ -84,6 +86,9 @@ func main() {
 			pollWebsite(site, config.Email)
 		}(website)
 	}
+	fmt.Printf("Using smtp host: %s\n", config.Email.SMTPHost)
+	fmt.Printf("Using smtp port: %s\n", config.Email.SMTPPort)
+
 
 	wg.Wait()
 }
@@ -132,16 +137,40 @@ func pollWebsite(site Website, emailConfig Email) {
 	}
 }
 // mail handler
-func sendAlert(emailConfig Email, recipients []string, url string) {
+func sendAlert(emailConfig Email, custodians []string, url string) {
 	dialer := gomail.NewDialer(emailConfig.SMTPHost, emailConfig.SMTPPort, emailConfig.Username, emailConfig.Password)
 
 	message := gomail.NewMessage()
 	message.SetHeader("From", emailConfig.Username)
-	message.SetHeader("To", recipients...)
+
+	// Ensure recipients list is non-empty and valid
+	recipients := validateEmails(custodians)
+	if len(recipients) == 0 {
+		log.Println("No valid recipients for the alert email.")
+		return
+	}
+
+	message.SetHeader("To", recipients...) // Spread the recipients slice
+
 	message.SetHeader("Subject", "Website Down Alert")
 	message.SetBody("text/plain", fmt.Sprintf("The website %s is down.", url))
 
+	// Send the email
 	if err := dialer.DialAndSend(message); err != nil {
 		log.Printf("Failed to send alert email: %v", err)
 	}
+}
+
+//  email validation
+
+func validateEmails(emails []string) []string {
+	validEmails := []string{}
+	for _, email := range emails {
+		if email != "" && strings.Contains(email, "@") {
+			validEmails = append(validEmails, email)
+		} else {
+			log.Printf("Invalid email address: %s", email)
+		}
+	}
+	return validEmails
 }
