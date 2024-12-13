@@ -120,7 +120,7 @@
         "url": "https://rangelands.app/",
         "poll_interval": 60,
         "custodians": ["kristopher.bonefont@gmail.com"]
-      }
+      }      
     ],
     "email": {
       "smtp_host": "${SMTP_HOST}", 

@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   uptime_monitor:
-    image: landscapedatacommons/uptime_monitor:1.0.0  
+    image: landscapedatacommons/uptime_monitor:1.0.4 
     build:
       context: .
     environment:

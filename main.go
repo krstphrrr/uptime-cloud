@@ -3,9 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"strings"
-
-	// "io"
 	// "io/ioutil"
 	"log"
 	"net/http"
@@ -125,13 +124,34 @@ func pollWebsite(site Website, emailConfig Email) {
 			log.Printf("Website DOWN: %s (%v)", site.URL, err)
 			status = 0.0
 
-			// Log and send email
 			log.Printf("Custodians for %s: %v", site.URL, site.Custodians)
 			sendAlert(emailConfig, site.Custodians, site.URL)
-		} else {
-			log.Printf("Website UP: %s (%d)", site.URL, resp.StatusCode)
-			status = 1.0
-		}
+			} else {
+			
+				body, err := io.ReadAll(resp.Body)
+				if err != nil {
+					log.Printf("Error reading response body: %v", err)
+				}
+				resp.Body.Close() 
+				// robust header check would require to add the application header ("X-Application-Name") to each app 
+				// and adding the expected application name on the config.json: site.headerName
+
+				// if resp.Header.Get("X-Application-Name") != site.headerName {
+				// 	log.Printf("Website UP but application seems offline: %s", site.URL)
+				// 	status = 0.0
+				// 	sendAlert(emailConfig, site.Custodians, site.URL)
+				// }	
+				
+				content := string(body)
+				if strings.Contains(content, "Welcome to nginx!") || strings.Contains(content, "It works!") {
+					log.Printf("Website UP but serving placeholder page: %s", site.URL)
+					status = 0.0
+					sendAlert(emailConfig, site.Custodians, site.URL)
+				} else {
+					log.Printf("Website UP: %s (%d)", site.URL, resp.StatusCode)
+					status = 1.0
+				}
+			}
 
 		uptimeGauge.WithLabelValues(site.URL).Set(status)
 		responseTimeHistogram.WithLabelValues(site.URL).Observe(responseTime)
@@ -153,10 +173,8 @@ func sendAlert(emailConfig Email, custodians []string, url string) {
 		log.Println("No valid recipients for the alert email.")
 		return
 	}
-	fmt.Printf("Custodians pre sending: %v", recipients)
 
-	message.SetHeader("To", recipients...) // Spread the recipients slice
-
+	message.SetHeader("To", recipients...) 
 	message.SetHeader("Subject", "Website Down Alert")
 	message.SetBody("text/plain", fmt.Sprintf("The website %s is down.", url))
 
