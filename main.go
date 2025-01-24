@@ -106,23 +106,36 @@ func main() {
 }
 
 func loadConfig(filePath string) (*Config, error) {
-	// Read the raw config file
-	rawConfig, err := os.ReadFile(filePath)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read config file: %w", err)
-	}
+    rawConfig, err := os.ReadFile(filePath)
+    if err != nil {
+        return nil, fmt.Errorf("failed to read config file: %w", err)
+    }
 
-	// Replace placeholders with environment variables
-	processedConfig := os.ExpandEnv(string(rawConfig))
+    // Replace placeholders with environment variables
+    processedConfig := os.ExpandEnv(string(rawConfig))
 
-	// Unmarshal into the Config struct
-	var config Config
-	err = json.Unmarshal([]byte(processedConfig), &config)
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse config file: %w", err)
-	}
+    // Optionally load secrets from files (used by Docker secrets)
+    if usernameFile := os.Getenv("SMTP_USERNAME_FILE"); usernameFile != "" {
+        username, err := os.ReadFile(usernameFile)
+        if err == nil {
+            os.Setenv("SMTP_USERNAME", strings.TrimSpace(string(username)))
+        }
+    }
 
-	return &config, nil
+    if passwordFile := os.Getenv("SMTP_PASSWORD_FILE"); passwordFile != "" {
+        password, err := os.ReadFile(passwordFile)
+        if err == nil {
+            os.Setenv("SMTP_PASSWORD", strings.TrimSpace(string(password)))
+        }
+    }
+
+    var config Config
+    err = json.Unmarshal([]byte(processedConfig), &config)
+    if err != nil {
+        return nil, fmt.Errorf("failed to parse config file: %w", err)
+    }
+
+    return &config, nil
 }
 
 func pollWebsite(site Website, config *Config) {
