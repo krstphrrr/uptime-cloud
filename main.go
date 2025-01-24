@@ -114,20 +114,24 @@ func loadConfig(filePath string) (*Config, error) {
     // Replace placeholders with environment variables
     processedConfig := os.ExpandEnv(string(rawConfig))
 
-    // Optionally load secrets from files (used by Docker secrets)
     if usernameFile := os.Getenv("SMTP_USERNAME_FILE"); usernameFile != "" {
-        username, err := os.ReadFile(usernameFile)
-        if err == nil {
-            os.Setenv("SMTP_USERNAME", strings.TrimSpace(string(username)))
-        }
-    }
-
-    if passwordFile := os.Getenv("SMTP_PASSWORD_FILE"); passwordFile != "" {
-        password, err := os.ReadFile(passwordFile)
-        if err == nil {
-            os.Setenv("SMTP_PASSWORD", strings.TrimSpace(string(password)))
-        }
-    }
+		username, err := os.ReadFile(usernameFile)
+		if err == nil {
+			os.Setenv("SMTP_USERNAME", strings.TrimSpace(string(username)))
+		} else {
+			log.Printf("Failed to read SMTP_USERNAME_FILE: %v", err)
+		}
+	}
+	
+	if passwordFile := os.Getenv("SMTP_PASSWORD_FILE"); passwordFile != "" {
+		password, err := os.ReadFile(passwordFile)
+		if err == nil {
+			os.Setenv("SMTP_PASSWORD", strings.TrimSpace(string(password)))
+		} else {
+			log.Printf("Failed to read SMTP_PASSWORD_FILE: %v", err)
+		}
+	}
+	
 
     var config Config
     err = json.Unmarshal([]byte(processedConfig), &config)
