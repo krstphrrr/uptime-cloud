@@ -6,8 +6,8 @@
         "custodians": ["kristopher.bonefont@gmail.com"]
       },
       {
-        "url": "https://devapi.landscapedatacommons.org",
-        "poll_interval": 60,
+        "url": "https://devapi.landscapedatacommons.org/",
+        "poll_interval": 10,
         "custodians": ["bonefont.work@gmail.com"]
       },
       {
@@ -122,6 +122,8 @@
         "custodians": ["kristopher.bonefont@gmail.com"]
       }      
     ],
+    "failure_threshold": 1,
+    "debounce_duration": 0.5,
     "email": {
       "smtp_host": "${SMTP_HOST}", 
       "smtp_port": 587,
