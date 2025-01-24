@@ -8,7 +8,7 @@
       {
         "url": "https://devapi.landscapedatacommons.org/",
         "poll_interval": 10,
-        "custodians": ["bonefont.work@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com"]
       },
       {
         "url": "https://api.landscapedatacommons.org",
