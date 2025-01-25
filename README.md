@@ -3,6 +3,10 @@
 simple uptime monitor that checks sites for successful get code 200
 and sends an email if it it's unsuccessful.
 
+2025-01-24 - 1.0.6
+- testing separate config json
+
+
 2025-01-24 - 1.0.5
 - added debounce time + failure threshold
 - made poll function aware of error codes

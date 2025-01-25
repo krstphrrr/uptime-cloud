@@ -76,7 +76,7 @@ func main() {
 
 	fmt.Printf("Uptime Monitor Version: %s\n", version.AppVersion)
 	// load config
-	config, err := loadConfig("config.json")
+	config, err := loadConfig("config.development.json")
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
 	}
@@ -156,8 +156,6 @@ func pollWebsite(site Website, config *Config) {
             log.Printf("Website DOWN: %s (Error: %v)", site.URL, err)
             handleFailure(site, config.Email, failureThreshold, debounceDuration, "Connection error or timeout")
         } else {
-            defer resp.Body.Close()
-
             if resp.StatusCode >= 500 {
                 log.Printf("Website DOWN: %s (Server error: %d)", site.URL, resp.StatusCode)
                 handleFailure(site, config.Email, failureThreshold, debounceDuration, fmt.Sprintf("Server error: %d", resp.StatusCode))
@@ -174,6 +172,7 @@ func pollWebsite(site Website, config *Config) {
                     ConsecutiveFails: 0,
                 })
             }
+            resp.Body.Close()
         }
 
         uptimeGauge.WithLabelValues(site.URL).Set(status)

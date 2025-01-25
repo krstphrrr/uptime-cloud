@@ -1,0 +1,134 @@
+{
+    "websites": [
+      {
+        "url": "https://landscapedatacommons.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://devapi.landscapedatacommons.org/api/v1/version",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://api.landscapedatacommons.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+
+      {
+        "url": "https://dust.swclimatehub.info",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://edit.jornada.nmsu.edu",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com", "keramsey@nmsu.edu"]
+      },
+      {
+        "url": "https://portal.landpotential.org/#/landpksmap",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://landpotential.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://jornada.nmsu.edu",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://southwestbeef.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://swclimatehub.info",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://agrisk.jornada.nmsu.edu/rma/",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://webapps.jornada.nmsu.edu/climate-quick-guides",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://webapps.jornada.nmsu.edu/frida",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu"]
+      },
+      {
+        "url": "https://jornada.nmsu.edu/maps/max",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://webapps.jornada.nmsu.edu/livestock",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://webapps.jornada.nmsu.edu/transition-atlas",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://webapps.jornada.nmsu.edu/weather",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://webapps.jornada.nmsu.edu/wata",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://www.winderosionnetwork.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://learn.landscapetoolbox.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://westernsnowconference.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://landscapetoolbox.org",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://rangelands.app/rap/",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      },
+      {
+        "url": "https://rangelands.app/",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com"]
+      }      
+    ],
+    "failure_threshold": 2,
+    "debounce_duration": 5,
+    "email": {
+      "smtp_host": "${SMTP_HOST}", 
+      "smtp_port": 587,
+      "username": "${SMTP_USERNAME}",
+      "password": "${SMTP_PASSWORD}"
+    }
+  }
+  
