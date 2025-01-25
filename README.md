@@ -5,6 +5,7 @@ and sends an email if it it's unsuccessful.
 
 2025-01-24 - 1.0.6
 - testing separate config json
+- iterate over custodians to maintain custodian privacy. 
 
 
 2025-01-24 - 1.0.5

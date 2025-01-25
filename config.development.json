@@ -22,11 +22,6 @@
         "custodians": ["kristopher.bonefont@gmail.com"]
       },
       {
-        "url": "https://edit.jornada.nmsu.edu",
-        "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "keramsey@nmsu.edu"]
-      },
-      {
         "url": "https://portal.landpotential.org/#/landpksmap",
         "poll_interval": 30,
         "custodians": ["kristopher.bonefont@gmail.com"]

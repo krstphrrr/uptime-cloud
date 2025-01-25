@@ -199,21 +199,20 @@ func handleFailure(site Website, emailConfig Email, failureThreshold int, deboun
 func sendAlert(emailConfig Email, custodians []string, url string, reason string) {
     dialer := gomail.NewDialer(emailConfig.SMTPHost, emailConfig.SMTPPort, emailConfig.Username, emailConfig.Password)
 
-    message := gomail.NewMessage()
-    message.SetHeader("From", emailConfig.Username)
+    for _, custodian := range custodians {
+        message := gomail.NewMessage()
+        message.SetHeader("From", emailConfig.Username)
 
-    recipients := validateEmails(custodians)
-    if len(recipients) == 0 {
-        log.Println("No valid recipients for the alert email.")
-        return
-    }
+        // Set only the current custodian as the recipient
+        message.SetHeader("To", custodian)
+        message.SetHeader("Subject", "Website Down Alert")
+        message.SetBody("text/plain", fmt.Sprintf("The website %s is down. Reason: %s", url, reason))
 
-    message.SetHeader("To", recipients...)
-    message.SetHeader("Subject", "Website Down Alert")
-    message.SetBody("text/plain", fmt.Sprintf("The website %s is down. Reason: %s", url, reason))
-
-    if err := dialer.DialAndSend(message); err != nil {
-        log.Printf("Failed to send alert email: %v", err)
+        if err := dialer.DialAndSend(message); err != nil {
+            log.Printf("Failed to send alert email to %s: %v", custodian, err)
+        } else {
+            log.Printf("Alert email sent to %s", custodian)
+        }
     }
 }
 
