@@ -27,6 +27,11 @@
         "custodians": ["kristopher.bonefont@gmail.com"]
       },
       {
+        "url": "https://edit.jornada.nmsu.edu",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com", "kramsey@nmsu.edu"]
+      },
+      {
         "url": "https://landpotential.org",
         "poll_interval": 30,
         "custodians": ["kristopher.bonefont@gmail.com"]
@@ -117,7 +122,7 @@
         "custodians": ["kristopher.bonefont@gmail.com"]
       }      
     ],
-    "failure_threshold": 2,
+    "failure_threshold": 3,
     "debounce_duration": 5,
     "email": {
       "smtp_host": "${SMTP_HOST}", 

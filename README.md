@@ -3,6 +3,9 @@
 simple uptime monitor that checks sites for successful get code 200
 and sends an email if it it's unsuccessful.
 
+2025-01-24 - 1.0.7
+- added success threshold
+
 2025-01-24 - 1.0.6
 - testing separate config json
 - iterate over custodians to maintain custodian privacy. 

@@ -122,8 +122,9 @@
         "custodians": ["kristopher.bonefont@gmail.com"]
       }      
     ],
-    "failure_threshold": 2,
-    "debounce_duration": 5,
+    "failure_threshold": 3,
+    "success_threshold": 3,
+    "debounce_duration": 2.5,
     "email": {
       "smtp_host": "${SMTP_HOST}", 
       "smtp_port": 587,

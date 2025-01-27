@@ -24,12 +24,15 @@ var alertState = sync.Map{} // Map to track alert state for each website
 type AlertState struct {
     LastAlertTime    time.Time
     ConsecutiveFails int
+    ConsecutiveSuccesses int // T\track consecutive successes
+    AlertSent        bool   // whether a "website down" alert has been sent
 }
 
 type Config struct {
     Websites        []Website `json:"websites"`
     Email           Email     `json:"email"`
     FailureThreshold int      `json:"failure_threshold"`
+	SuccessThreshold int      `json:"success_threshold"`
     DebounceDuration float64  `json:"debounce_duration"` // Change to float64
 }
 
@@ -144,7 +147,8 @@ func loadConfig(filePath string) (*Config, error) {
 
 func pollWebsite(site Website, config *Config) {
     failureThreshold := config.FailureThreshold
-	debounceDuration := time.Duration(config.DebounceDuration * float64(time.Minute))
+    successThreshold := 3 // Example hardcoded success threshold; make configurable if needed
+    debounceDuration := time.Duration(config.DebounceDuration * float64(time.Minute))
 
     for {
         start := time.Now()
@@ -152,49 +156,71 @@ func pollWebsite(site Website, config *Config) {
         responseTime := time.Since(start).Seconds()
 
         status := 0.0
+
         if err != nil {
-            log.Printf("Website DOWN: %s (Error: %v)", site.URL, err)
+            // Handle connection errors
+            log.Printf("Website DOWN: %s (Connection error: %v)", site.URL, err)
             handleFailure(site, config.Email, failureThreshold, debounceDuration, "Connection error or timeout")
         } else {
+            defer resp.Body.Close()
+
             if resp.StatusCode >= 500 {
+                // Handle server errors
                 log.Printf("Website DOWN: %s (Server error: %d)", site.URL, resp.StatusCode)
                 handleFailure(site, config.Email, failureThreshold, debounceDuration, fmt.Sprintf("Server error: %d", resp.StatusCode))
             } else if resp.StatusCode >= 400 {
+                // Handle client errors
                 log.Printf("Website DOWN: %s (Client error: %d)", site.URL, resp.StatusCode)
                 handleFailure(site, config.Email, failureThreshold, debounceDuration, fmt.Sprintf("Client error: %d", resp.StatusCode))
             } else {
-                log.Printf("Website UP: %s (%d)", site.URL, resp.StatusCode)
+                // Handle success
+                log.Printf("Website UP: %s (Status code: %d)", site.URL, resp.StatusCode)
+                handleSuccess(site, config.Email, successThreshold)
                 status = 1.0
-
-                // Reset alert state on successful response
-                alertState.Store(site.URL, &AlertState{
-                    LastAlertTime:    time.Now(),
-                    ConsecutiveFails: 0,
-                })
             }
-            resp.Body.Close()
         }
 
+        // Update Prometheus metrics
         uptimeGauge.WithLabelValues(site.URL).Set(status)
         responseTimeHistogram.WithLabelValues(site.URL).Observe(responseTime)
 
+        // Wait for the next poll
         time.Sleep(time.Duration(site.PollInterval) * time.Second)
     }
 }
+
+
+
 
 func handleFailure(site Website, emailConfig Email, failureThreshold int, debounceDuration time.Duration, reason string) {
     state, _ := alertState.LoadOrStore(site.URL, &AlertState{})
     alert := state.(*AlertState)
 
-    // Update consecutive failures
     alert.ConsecutiveFails++
+    alert.ConsecutiveSuccesses = 0 // Reset successes on failure
 
-    // Check if it's time to send an alert
-    if alert.ConsecutiveFails >= failureThreshold && time.Since(alert.LastAlertTime) > debounceDuration {
+    if alert.ConsecutiveFails >= failureThreshold && !alert.AlertSent && time.Since(alert.LastAlertTime) > debounceDuration {
         alert.LastAlertTime = time.Now()
+        alert.AlertSent = true // Mark that a "down" alert has been sent
         sendAlert(emailConfig, site.Custodians, site.URL, reason)
     }
 }
+
+
+func handleSuccess(site Website, emailConfig Email, successThreshold int) {
+    state, _ := alertState.LoadOrStore(site.URL, &AlertState{})
+    alert := state.(*AlertState)
+
+    alert.ConsecutiveSuccesses++
+    alert.ConsecutiveFails = 0 // Reset failures on success
+
+    if alert.ConsecutiveSuccesses >= successThreshold && alert.AlertSent {
+        alert.AlertSent = false // Reset the "alert sent" flag
+        sendAlert(emailConfig, site.Custodians, site.URL, "Website is back up")
+    }
+}
+
+
 // mail handler
 func sendAlert(emailConfig Email, custodians []string, url string, reason string) {
     dialer := gomail.NewDialer(emailConfig.SMTPHost, emailConfig.SMTPPort, emailConfig.Username, emailConfig.Password)
