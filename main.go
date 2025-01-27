@@ -206,7 +206,7 @@ func handleFailure(site Website, emailConfig Email, failureThreshold int, reason
         // Send the alert and mark it as sent
         alert.LastAlertTime = time.Now()
         alert.AlertSent = true
-        sendAlert(emailConfig, site.Custodians, site.URL, reason)
+        sendAlert(emailConfig, site.Custodians, site.URL, reason, true)
     }
 }
 
@@ -221,13 +221,13 @@ func handleSuccess(site Website, emailConfig Email, successThreshold int) {
 
     if alert.ConsecutiveSuccesses >= successThreshold && alert.AlertSent {
         alert.AlertSent = false // Reset the "alert sent" flag
-        sendAlert(emailConfig, site.Custodians, site.URL, "Website is back up")
+        sendAlert(emailConfig, site.Custodians, site.URL, "Website is back up", false)
     }
 }
 
 
 // mail handler
-func sendAlert(emailConfig Email, custodians []string, url string, reason string) {
+func sendAlert(emailConfig Email, custodians []string, url string, reason string, isDown bool) {
     dialer := gomail.NewDialer(emailConfig.SMTPHost, emailConfig.SMTPPort, emailConfig.Username, emailConfig.Password)
 
     for _, custodian := range custodians {
@@ -236,8 +236,14 @@ func sendAlert(emailConfig Email, custodians []string, url string, reason string
 
         // Set only the current custodian as the recipient
         message.SetHeader("To", custodian)
-        message.SetHeader("Subject", "Website Down Alert")
-        message.SetBody("text/plain", fmt.Sprintf("The website %s is down. Reason: %s", url, reason))
+
+        if isDown {
+            message.SetHeader("Subject", "Website Down Alert")
+            message.SetBody("text/plain", fmt.Sprintf("The website %s is down. Reason: %s", url, reason))
+        } else {
+            message.SetHeader("Subject", "Website Back Up Notification")
+            message.SetBody("text/plain", fmt.Sprintf("Good news! The website %s is back up and running.", url))
+        }
 
         if err := dialer.DialAndSend(message); err != nil {
             log.Printf("Failed to send alert email to %s: %v", custodian, err)
