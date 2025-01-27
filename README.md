@@ -3,6 +3,10 @@
 simple uptime monitor that checks sites for successful get code 200
 and sends an email if it it's unsuccessful.
 
+
+2025-01-24 - 1.0.8
+- leveraging alert state
+
 2025-01-24 - 1.0.7
 - added success threshold
 

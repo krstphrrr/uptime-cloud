@@ -147,8 +147,8 @@ func loadConfig(filePath string) (*Config, error) {
 
 func pollWebsite(site Website, config *Config) {
     failureThreshold := config.FailureThreshold
-    successThreshold := 3 // Example hardcoded success threshold; make configurable if needed
-    debounceDuration := time.Duration(config.DebounceDuration * float64(time.Minute))
+    successThreshold := config.SuccessThreshold
+    // debounceDuration := time.Duration(config.DebounceDuration * float64(time.Minute))
 
     for {
         start := time.Now()
@@ -160,18 +160,20 @@ func pollWebsite(site Website, config *Config) {
         if err != nil {
             // Handle connection errors
             log.Printf("Website DOWN: %s (Connection error: %v)", site.URL, err)
-            handleFailure(site, config.Email, failureThreshold, debounceDuration, "Connection error or timeout")
+            handleFailure(site, config.Email, failureThreshold, "Connection error or timeout")
         } else {
-            defer resp.Body.Close()
+            if resp != nil {
+                resp.Body.Close()
+            }
 
             if resp.StatusCode >= 500 {
                 // Handle server errors
                 log.Printf("Website DOWN: %s (Server error: %d)", site.URL, resp.StatusCode)
-                handleFailure(site, config.Email, failureThreshold, debounceDuration, fmt.Sprintf("Server error: %d", resp.StatusCode))
+                handleFailure(site, config.Email, failureThreshold, fmt.Sprintf("Server error: %d", resp.StatusCode))
             } else if resp.StatusCode >= 400 {
                 // Handle client errors
                 log.Printf("Website DOWN: %s (Client error: %d)", site.URL, resp.StatusCode)
-                handleFailure(site, config.Email, failureThreshold, debounceDuration, fmt.Sprintf("Client error: %d", resp.StatusCode))
+                handleFailure(site, config.Email, failureThreshold, fmt.Sprintf("Client error: %d", resp.StatusCode))
             } else {
                 // Handle success
                 log.Printf("Website UP: %s (Status code: %d)", site.URL, resp.StatusCode)
@@ -192,19 +194,22 @@ func pollWebsite(site Website, config *Config) {
 
 
 
-func handleFailure(site Website, emailConfig Email, failureThreshold int, debounceDuration time.Duration, reason string) {
+func handleFailure(site Website, emailConfig Email, failureThreshold int, reason string) {
     state, _ := alertState.LoadOrStore(site.URL, &AlertState{})
     alert := state.(*AlertState)
 
     alert.ConsecutiveFails++
     alert.ConsecutiveSuccesses = 0 // Reset successes on failure
 
-    if alert.ConsecutiveFails >= failureThreshold && !alert.AlertSent && time.Since(alert.LastAlertTime) > debounceDuration {
+    // Only send an alert if the failure threshold is met and no alert has been sent yet
+    if alert.ConsecutiveFails >= failureThreshold && !alert.AlertSent {
+        // Send the alert and mark it as sent
         alert.LastAlertTime = time.Now()
-        alert.AlertSent = true // Mark that a "down" alert has been sent
+        alert.AlertSent = true
         sendAlert(emailConfig, site.Custodians, site.URL, reason)
     }
 }
+
 
 
 func handleSuccess(site Website, emailConfig Email, successThreshold int) {
@@ -240,19 +245,4 @@ func sendAlert(emailConfig Email, custodians []string, url string, reason string
             log.Printf("Alert email sent to %s", custodian)
         }
     }
-}
-
-//  email validation
-
-func validateEmails(emails []string) []string {
-	validEmails := []string{}
-	for _, email := range emails {
-		log.Printf("Processing email: %s", email)
-		if email != "" && strings.Contains(email, "@") {
-			validEmails = append(validEmails, email)
-		} else {
-			log.Printf("Invalid email address: %s", email)
-		}
-	}
-	return validEmails
 }
