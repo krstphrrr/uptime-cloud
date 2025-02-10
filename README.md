@@ -3,6 +3,10 @@
 simple uptime monitor that checks sites for successful get code 200
 and sends an email if it it's unsuccessful.
 
+2025-01-24 - 1.0.10
+- added smscustodians
+- added custodians to each site
+
 2025-01-24 - 1.0.9
 - sendalert function now is aware of polled application status
 

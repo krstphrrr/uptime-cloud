@@ -3,124 +3,125 @@
       {
         "url": "https://landscapedatacommons.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "christopher.fraser@usda.gov"]
       },
       {
         "url": "https://devapi.landscapedatacommons.org/api/v1/version",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "keramsey@nmsu.edu", "scott.schrader@usda.gov"],
+        "smsCustodians": ["5756446920@vtext.com"]
       },
       {
         "url": "https://api.landscapedatacommons.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov"]
       },
 
       {
         "url": "https://dust.swclimatehub.info",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
-      },
-      {
-        "url": "https://portal.landpotential.org/#/landpksmap",
-        "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://edit.jornada.nmsu.edu",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "kramsey@nmsu.edu"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://landpotential.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://jornada.nmsu.edu",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov"]
       },
       {
         "url": "https://southwestbeef.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://swclimatehub.info",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://agrisk.jornada.nmsu.edu/rma/",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/climate-quick-guides",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/frida",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://jornada.nmsu.edu/maps/max",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/livestock",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/transition-atlas",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+      },
+      {
+        "url": "https://webapps.jornada.nmsu.edu/transition-classifier",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/weather",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/wata",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://www.winderosionnetwork.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://learn.landscapetoolbox.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov"]
       },
       {
         "url": "https://westernsnowconference.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
       },
       {
         "url": "https://landscapetoolbox.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov"]
       },
       {
         "url": "https://rangelands.app/rap/",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "jeb.williamson@usda.gov"]
       },
       {
         "url": "https://rangelands.app/",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com"]
-      }      
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "jeb.williamson@usda.gov"]
+      }
     ],
     "failure_threshold": 3,
     "success_threshold": 5,

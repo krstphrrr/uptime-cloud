@@ -40,7 +40,9 @@ type Website struct {
 	URL          string   `json:"url"`
 	PollInterval int      `json:"poll_interval"`
 	Custodians   []string `json:"custodians"`
+	SMSCustodians []string `json:"smsCustodians,omitempty"` // Optional field for SMS recipients
 }
+
 
 type Email struct {
 	SMTPHost string `json:"smtp_host"`
@@ -206,7 +208,7 @@ func handleFailure(site Website, emailConfig Email, failureThreshold int, reason
         // Send the alert and mark it as sent
         alert.LastAlertTime = time.Now()
         alert.AlertSent = true
-        sendAlert(emailConfig, site.Custodians, site.URL, reason, true)
+        sendAlert(emailConfig, site.Custodians, site.SMSCustodians, site.URL, reason, true)
     }
 }
 
@@ -221,13 +223,13 @@ func handleSuccess(site Website, emailConfig Email, successThreshold int) {
 
     if alert.ConsecutiveSuccesses >= successThreshold && alert.AlertSent {
         alert.AlertSent = false // Reset the "alert sent" flag
-        sendAlert(emailConfig, site.Custodians, site.URL, "Website is back up", false)
+        sendAlert(emailConfig, site.Custodians, site.SMSCustodians, site.URL, "Website is back up", false)
     }
 }
 
 
 // mail handler
-func sendAlert(emailConfig Email, custodians []string, url string, reason string, isDown bool) {
+func sendAlert(emailConfig Email, custodians []string, smsCustodians []string, url string, reason string, isDown bool) {
     dialer := gomail.NewDialer(emailConfig.SMTPHost, emailConfig.SMTPPort, emailConfig.Username, emailConfig.Password)
 
     for _, custodian := range custodians {
@@ -251,4 +253,21 @@ func sendAlert(emailConfig Email, custodians []string, url string, reason string
             log.Printf("Alert email sent to %s", custodian)
         }
     }
+     // Send SMS Alerts (Only if smsCustodians exists and is non-empty)
+     if len(smsCustodians) > 0 {
+        for _, smsCustodian := range smsCustodians {
+            smsMessage := gomail.NewMessage()
+            smsMessage.SetHeader("From", emailConfig.Username)
+            smsMessage.SetHeader("To", smsCustodian)
+
+            smsMessage.SetBody("text/plain", fmt.Sprintf("ALERT: %s is down: %s", url, reason))
+
+            if err := dialer.DialAndSend(smsMessage); err != nil {
+                log.Printf("Failed to send SMS to %s: %v", smsCustodian, err)
+            } else {
+                log.Printf("Alert SMS sent to %s", smsCustodian)
+            }
+        }
+    }
+
 }
