@@ -3,6 +3,8 @@
 simple uptime monitor that checks sites for successful get code 200
 and sends an email if it it's unsuccessful.
 
+2025-02-19 - 1.0.12
+- webapp up and webapp down sms  
 
 2025-01-24 - 1.0.11
 - clear text url in email header 

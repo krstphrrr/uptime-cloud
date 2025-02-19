@@ -260,7 +260,12 @@ func sendAlert(emailConfig Email, custodians []string, smsCustodians []string, u
             smsMessage.SetHeader("From", emailConfig.Username)
             smsMessage.SetHeader("To", smsCustodian)
 
-            smsMessage.SetBody("text/plain", fmt.Sprintf("ALERT: %s is down: %s", url, reason))
+            if isDown{
+                smsMessage.SetBody("text/plain", fmt.Sprintf("ALERT: %s is down: %s", url, reason))
+            } else {
+                smsMessage.SetBody("text/plain", fmt.Sprintf("ALERT: %s is back up!", url))
+            }
+            
 
             if err := dialer.DialAndSend(smsMessage); err != nil {
                 log.Printf("Failed to send SMS to %s: %v", smsCustodian, err)
