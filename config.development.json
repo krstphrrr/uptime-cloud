@@ -8,24 +8,27 @@
       {
         "url": "https://devapi.landscapedatacommons.org/api/v1/version",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "keramsey@nmsu.edu", "scott.schrader@usda.gov"],
-        "smsCustodians": ["5756446920@vtext.com"]
+        "custodians": ["kristopher.bonefont@gmail.com"]
       },
       {
         "url": "https://api.landscapedatacommons.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net","5756446920@vtext.com"]
       },
 
       {
         "url": "https://dust.swclimatehub.info",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"],
+        "smsCustodians": ["5756446920@vtext.com"]
       },
       {
         "url": "https://edit.jornada.nmsu.edu",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net","5756446920@vtext.com"]
+
       },
       {
         "url": "https://landpotential.org",
@@ -35,67 +38,80 @@
       {
         "url": "https://jornada.nmsu.edu",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://southwestbeef.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov","christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://swclimatehub.info",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net","5756446920@vtext.com"]
       },
       {
         "url": "https://agrisk.jornada.nmsu.edu/rma/",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/climate-quick-guides",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov","christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/frida",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://jornada.nmsu.edu/maps/max",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/livestock",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/transition-atlas",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/transition-classifier",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/weather",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://webapps.jornada.nmsu.edu/wata",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://www.winderosionnetwork.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://learn.landscapetoolbox.org",
@@ -110,17 +126,26 @@
       {
         "url": "https://landscapetoolbox.org",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://rangelands.app/rap/",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
       },
       {
         "url": "https://rangelands.app/",
         "poll_interval": 30,
-        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "jeb.williamson@usda.gov"]
+        "custodians": ["kristopher.bonefont@gmail.com", "ericha@nmsu.edu", "keramsey@nmsu.edu", "scott.schrader@usda.gov", "sarah.mccord@usda.gov", "jeb.williamson@usda.gov", "christopher.fraser@usda.gov"],
+        "smsCustodians": ["7738991380@tmomail.net", "5756446920@vtext.com"]
+      },
+      {
+        "url": "http://192.168.177.190:6001/",
+        "poll_interval": 30,
+        "custodians": ["kristopher.bonefont@gmail.com", "keramsey@nmsu.edu"],
+        "smsCustodians": ["7876139211@tmomail.net"]
       }
     ],
     "failure_threshold": 3,
