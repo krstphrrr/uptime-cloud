@@ -148,8 +148,8 @@
         "smsCustodians": ["7876139211@tmomail.net"]
       }
     ],
-    "failure_threshold": 3,
-    "success_threshold": 5,
+    "failure_threshold": 5,
+    "success_threshold": 10,
     "debounce_duration": 5,
     "email": {
       "smtp_host": "${SMTP_HOST}", 
