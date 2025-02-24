@@ -33,7 +33,7 @@ type Config struct {
     Email           Email     `json:"email"`
     FailureThreshold int      `json:"failure_threshold"`
 	SuccessThreshold int      `json:"success_threshold"`
-    DebounceDuration float64  `json:"debounce_duration"` // Change to float64
+    // DebounceDuration float64  `json:"debounce_duration"` // Change to float64
 }
 
 type Website struct {
