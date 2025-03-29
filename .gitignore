@@ -6,3 +6,4 @@
 **/.terraform-version
 **/*.tfstate
 **/*.tfstate.backup
+**/*.tfvars
