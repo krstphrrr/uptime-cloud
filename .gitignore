@@ -1,2 +1,8 @@
 **/.env
 **/backup.dev.json
+
+# terraform 
+**/.terraform/**
+**/.terraform-version
+**/*.tfstate
+**/*.tfstate.backup
