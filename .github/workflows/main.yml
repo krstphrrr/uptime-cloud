@@ -2,7 +2,7 @@ name: CI_uptime_monitor
 
 on:
   push:
-    branches: [ main ]
+    branches: [ no ci ]
   pull_request:
     branches: [ no ci ] # 'no ci' if desired
 
