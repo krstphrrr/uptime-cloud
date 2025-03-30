@@ -39,8 +39,8 @@ jobs:
           context: .
           push: true
           tags: |
-          ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:${{ steps.extract_version.outputs.VERSION }}
-          ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:latest
+            ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:${{ steps.extract_version.outputs.VERSION }}
+            ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:latest
       
       - name: Prepare Task Definition (inject version)
         run: |
