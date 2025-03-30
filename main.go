@@ -161,7 +161,7 @@ func pollWebsite(site Website, config *Config) {
 
         if err != nil {
             // Handle connection errors
-            log.Printf("Website DOWN: %s (Connection error: %v)", site.URL, err)
+            log.Printf("Website DOWN from AWS deployment: %s (Connection error: %v)", site.URL, err)
             handleFailure(site, config.Email, failureThreshold, "Connection error or timeout")
         } else {
             if resp != nil {
@@ -170,15 +170,15 @@ func pollWebsite(site Website, config *Config) {
 
             if resp.StatusCode >= 500 {
                 // Handle server errors
-                log.Printf("Website DOWN: %s (Server error: %d)", site.URL, resp.StatusCode)
+                log.Printf("Website DOWN from AWS deployment: %s (Server error: %d)", site.URL, resp.StatusCode)
                 handleFailure(site, config.Email, failureThreshold, fmt.Sprintf("Server error: %d", resp.StatusCode))
             } else if resp.StatusCode >= 400 {
                 // Handle client errors
-                log.Printf("Website DOWN: %s (Client error: %d)", site.URL, resp.StatusCode)
+                log.Printf("Website DOWN from AWS deployment: %s (Client error: %d)", site.URL, resp.StatusCode)
                 handleFailure(site, config.Email, failureThreshold, fmt.Sprintf("Client error: %d", resp.StatusCode))
             } else {
                 // Handle success
-                log.Printf("Website UP: %s (Status code: %d)", site.URL, resp.StatusCode)
+                log.Printf("Website UP from AWS deployment: %s (Status code: %d)", site.URL, resp.StatusCode)
                 handleSuccess(site, config.Email, successThreshold)
                 status = 1.0
             }
