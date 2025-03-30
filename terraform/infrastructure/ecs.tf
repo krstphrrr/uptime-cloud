@@ -4,6 +4,11 @@
 resource "aws_cloudwatch_log_group" "uptime_monitor" {
   name              = "/ecs/uptime-monitor"
   retention_in_days = 7
+  tags = {
+    Name = "uptime-monitor-cloudwatch-log-group"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
+  }
 }
 
 # ---------------------
@@ -85,4 +90,10 @@ resource "aws_ecs_task_definition" "uptime_monitor" {
       ]
     }
   ])
+
+  tags = {
+    Name = "uptime-monitor-task"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
+  }
 }

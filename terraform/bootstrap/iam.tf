@@ -3,10 +3,16 @@
 # 1. GitHub Actions IAM user (for CI/CD)
 resource "aws_iam_user" "github_deploy_user" {
   name = "github-deploy-user"
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_iam_access_key" "github_deploy_key" {
   user = aws_iam_user.github_deploy_user.name
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_iam_user_policy" "github_deploy_policy" {
@@ -29,6 +35,9 @@ resource "aws_iam_user_policy" "github_deploy_policy" {
       }
     ]
   })
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_iam_policy" "github_deploy_passrole" {
@@ -44,6 +53,9 @@ resource "aws_iam_policy" "github_deploy_passrole" {
       }
     ]
   })
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_iam_user_policy_attachment" "github_deploy_passrole_attach" {
@@ -54,10 +66,16 @@ resource "aws_iam_user_policy_attachment" "github_deploy_passrole_attach" {
 # 2. Terraform local provisioning IAM user
 resource "aws_iam_user" "terraform_provisioner" {
   name = "terraform-provisioner"
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_iam_access_key" "terraform_key" {
   user = aws_iam_user.terraform_provisioner.name
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_iam_user_policy" "terraform_policy" {
@@ -81,6 +99,9 @@ resource "aws_iam_user_policy" "terraform_policy" {
       }
     ]
   })
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # Output credentials so you can set them up in GitHub/locally

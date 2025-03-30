@@ -8,6 +8,8 @@ resource "aws_vpc" "main" {
 
   tags = {
     Name = "uptime-monitor-vpc"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
   }
 }
 
@@ -16,6 +18,8 @@ resource "aws_internet_gateway" "main" {
 
   tags = {
     Name = "uptime-monitor-igw"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
   }
 }
 
@@ -27,6 +31,8 @@ resource "aws_subnet" "public_a" {
 
   tags = {
     Name = "uptime-monitor-subnet-a"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
   }
 }
 
@@ -40,6 +46,8 @@ resource "aws_route_table" "public" {
 
   tags = {
     Name = "uptime-monitor-route-table"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
   }
 }
 
@@ -72,6 +80,8 @@ resource "aws_security_group" "ecs_sg" {
 
   tags = {
     Name = "uptime-monitor-sg"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
   }
 }
 
@@ -83,5 +93,7 @@ resource "aws_ecs_cluster" "uptime" {
 
   tags = {
     Name = "uptime-monitor-cluster"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
   }
 }

@@ -13,4 +13,10 @@ resource "aws_ecs_service" "uptime_monitor" {
 
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
+
+  tags = {
+    Name = "uptime-monitor-ecs-service"
+    Project = "uptime-monitor"
+    ManagedBy = "Terraform"
+  }
 }

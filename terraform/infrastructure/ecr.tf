@@ -6,7 +6,13 @@ resource "aws_ecr_repository" "uptime_monitor" {
   }
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
+  }
+
+  tags = {
+    Name      = "uptime-monitor-ecr-repo"
+    Project   = "uptime-monitor"
+    ManagedBy = "Terraform"
   }
 }
 
