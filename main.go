@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 
@@ -156,14 +155,17 @@ func pollWebsite(site Website, config *Config) {
     client := &http.Client{
         Timeout: 10 * time.Second,
         Transport: &http.Transport{
-            DisableKeepAlives: true,
+            DisableKeepAlives: false, // Testing
+            MaxIdleConns:        50,
+            MaxIdleConnsPerHost: 2,
+            IdleConnTimeout:     90 * time.Second, 
         },
     }
 
     for {
         start := time.Now()
         resp, err := client.Get(site.URL)
-        if err != nil && errors.Is(err, io.EOF) {
+        if err != nil && strings.Contains(err.Error(), "EOF") {
             log.Printf("Retrying due to EOF error for %s", site.URL)
             resp, err = client.Get(site.URL)
         }
@@ -173,7 +175,11 @@ func pollWebsite(site Website, config *Config) {
 
         if err != nil {
             // Handle connection errors
-            log.Printf("Website DOWN from AWS deployment: %s (Connection error: %v)", site.URL, err)
+            if err == io.EOF {
+                log.Printf("EOF error from AWS deployment: %s (Connection closed early)", site.URL)
+            } else {
+                log.Printf("Website DOWN from AWS deployment: %s (Connection error: %v)", site.URL, err)
+            }
             handleFailure(site, config.Email, failureThreshold, "Connection error or timeout")
         } else {
             if resp != nil {
