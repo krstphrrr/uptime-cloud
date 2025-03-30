@@ -6,6 +6,11 @@
       "custodians": ["kristopher.bonefont@gmail.com"]
     },
     {
+      "url": "https://samimomosamimomo.org",
+      "poll_interval": 60,
+      "custodians": ["kristopher.bonefont@gmail.com"]
+    },
+    {
       "url": "https://api.landscapedatacommons.org",
       "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
