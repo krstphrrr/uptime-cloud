@@ -2,42 +2,42 @@
   "websites": [
     {
       "url": "https://devapi.landscapedatacommons.org/api/v1/version",
-      "poll_interval": 120,
+      "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
     },
     {
       "url": "https://api.landscapedatacommons.org",
-      "poll_interval": 120,
+      "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
     },
     {
       "url": "https://edit.jornada.nmsu.edu",
-      "poll_interval": 120,
+      "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
     },
     {
       "url": "https://jornada.nmsu.edu",
-      "poll_interval": 120,
+      "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
     },
     {
       "url": "https://southwestbeef.org",
-      "poll_interval": 120,
+      "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
     },
     {
       "url": "https://swclimatehub.info",
-      "poll_interval": 120,
+      "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
     },
     {
       "url": "https://rangelands.app/",
-      "poll_interval": 120,
+      "poll_interval": 60,
       "custodians": ["kristopher.bonefont@gmail.com"]
     }
   ],
-  "failure_threshold": 3,
-  "success_threshold": 2,
+  "failure_threshold": 1,
+  "success_threshold": 1,
   "email": {
     "smtp_host": "${SMTP_HOST}", 
     "smtp_port": 587,

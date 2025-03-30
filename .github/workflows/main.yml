@@ -10,32 +10,44 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Set Up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
+        uses: docker/setup-buildx-action@v3.10.0
+        
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
+          
       - name: Log in to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2.0.1
+          
+      - name: Extract App Version
+        id: extract_version
+        run: |
+          VERSION=$(grep 'AppVersion' version/version.go | cut -d '"' -f2)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build and Push Docker image to ECR
         id: build-image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6.15.0
         with:
           context: .
           push: true
-          tags: ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:latest
+          tags: |
+          ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:${{ steps.extract_version.outputs.VERSION }}
+          ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:latest
+      
+      - name: Prepare Task Definition (inject version)
+        run: |
+          sed "s/__VERSION__/${{ steps.extract_version.outputs.VERSION }}/" ecs-task-def.json.tpl > ecs-task-def.json
 
       - name: Update ECS Service
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2.3.1
         with:
           task-definition: ecs-task-def.json
           service: uptime-monitor-service
