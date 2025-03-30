@@ -1,6 +1,6 @@
 services:
   uptime_monitor:
-    image: landscapedatacommons/uptime_monitor:1.0.5
+    image: uptime-cloud:latest
     build:
       context: .
     secrets:

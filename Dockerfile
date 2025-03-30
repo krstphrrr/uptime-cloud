@@ -1,17 +1,16 @@
-# Use the official Golang image
-FROM golang:1.23.4
-
-# Set the working directory
+# stage 1: build the app 
+FROM golang:1.24.1 AS builder
 WORKDIR /app
-
-# Copy files
 COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o uptime-monitor
+# stage 2: install ca-certificates
+FROM alpine AS certs
+RUN apk --no-cache add ca-certificates
 
-# Install dependencies and build the binary
-RUN go mod tidy && go build -o uptime_monitor
+# stage 3: copy the ca-certificates and the binary to a scratch image
+FROM scratch
+COPY --from=builder /app/config.development.json /config.development.json
+COPY --from=builder /app/uptime-monitor /uptime-monitor
+COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
-# Expose the Prometheus metrics port
-EXPOSE 8080
-
-# Run the application
-CMD ["./uptime_monitor"]
+CMD ["/uptime-monitor"]

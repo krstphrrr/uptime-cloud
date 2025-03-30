@@ -1,56 +1,43 @@
-name: CI_uptime_monitor
+name: Deploy to AWS Fargate
 
 on:
   push:
-    branches: [ no ci ]
-  pull_request:
-    branches: [ no ci ] # 'no ci' if desired
+    branches: [main]
 
 jobs:
   deploy:
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout Code
       - name: Checkout Code
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
-      # 2. Extract Version from `version.go` or a VERSION file
-      - name: Extract Version
-        id: extract_version
-        run: |
-          app_version=$(grep -oP '(?<=const AppVersion = ")[^"]+' ./version/version.go || cat ./VERSION)
-          echo "EXTRACTED_VERSION=${app_version}" >> "$GITHUB_OUTPUT"
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      # 3. Log in to DockerHub
-      - name: Docker Login
-        uses: docker/login-action@v3.1.0
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-      # 4. Build and Push Docker Image
-      - name: Build and Push Docker Image
-        id: docker_build
-        uses: docker/build-push-action@v5.3.0
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and Push Docker image to ECR
+        id: build-image
+        uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
           push: true
-          tags: landscapedatacommons/uptime-monitor:${{ steps.extract_version.outputs.EXTRACTED_VERSION }}
-          secrets: |
-            SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}
-            SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
-            SMTP_HOST=${{ secrets.SMTP_HOST }}
-            SMTP_PORT=${{ secrets.SMTP_PORT }}
+          tags: ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:latest
 
-      # 5. Deploy to Remote Server
-      - name: Deploy to Remote Server
-        uses: appleboy/ssh-action@master
+      - name: Update ECS Service
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            docker service update uptime_uptime_monitor \
-            --image=docker.io/landscapedatacommons/uptime-monitor:${{ steps.extract_version.outputs.EXTRACTED_VERSION }}
+          task-definition: ecs-task-def.json
+          service: uptime-monitor-service
+          cluster: uptime-monitor-cluster
+          wait-for-service-stability: true
