@@ -40,7 +40,7 @@ resource "aws_iam_policy" "github_deploy_passrole" {
       {
         Effect = "Allow",
         Action = "iam:PassRole",
-        Resource = "arn:aws:iam::969288771269:role/ecsTaskExecutionRole"
+        Resource = local.execution_role_arn
       }
     ]
   })

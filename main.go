@@ -2,7 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+
 	// "io"
 	"strings"
 	// "io/ioutil"
@@ -150,11 +153,20 @@ func loadConfig(filePath string) (*Config, error) {
 func pollWebsite(site Website, config *Config) {
     failureThreshold := config.FailureThreshold
     successThreshold := config.SuccessThreshold
-    // debounceDuration := time.Duration(config.DebounceDuration * float64(time.Minute))
+    client := &http.Client{
+        Timeout: 10 * time.Second,
+        Transport: &http.Transport{
+            DisableKeepAlives: true,
+        },
+    }
 
     for {
         start := time.Now()
-        resp, err := http.Get(site.URL)
+        resp, err := client.Get(site.URL)
+        if err != nil && errors.Is(err, io.EOF) {
+            log.Printf("Retrying due to EOF error for %s", site.URL)
+            resp, err = client.Get(site.URL)
+        }
         responseTime := time.Since(start).Seconds()
 
         status := 0.0
