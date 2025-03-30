@@ -153,7 +153,7 @@ func pollWebsite(site Website, config *Config) {
     failureThreshold := config.FailureThreshold
     successThreshold := config.SuccessThreshold
     client := &http.Client{
-        Timeout: 10 * time.Second,
+        Timeout: 15 * time.Second,
         Transport: &http.Transport{
             DisableKeepAlives: false, // Testing
             MaxIdleConns:        50,
