@@ -258,10 +258,10 @@ func sendAlert(emailConfig Email, custodians []string, smsCustodians []string, u
         message.SetHeader("To", custodian)
 
         if isDown {
-            message.SetHeader("Subject", fmt.Sprintf("Website Down Alert: %s", url))
+            message.SetHeader("Subject", fmt.Sprintf("Website Down Alert from AWS: %s", url))
             message.SetBody("text/plain", fmt.Sprintf("The website %s is down. Reason: %s", url, reason))
         } else {
-            message.SetHeader("Subject", fmt.Sprintf("Website Back Up Notification: %s", url))
+            message.SetHeader("Subject", fmt.Sprintf("Website Back Up Notification from AWS: %s", url))
             message.SetBody("text/plain", fmt.Sprintf("Good news! The website %s is back up and running.", url))
         }
 
