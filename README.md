@@ -37,7 +37,7 @@ terraform apply
 ```
 
 4. To destroy the resources:
-```bash
+```bashl
 # to destroy all resources:
 terraform destroy
 # in this scenario, I added the prevent_destroy: true on the ECR repository, and had to manually target each service.

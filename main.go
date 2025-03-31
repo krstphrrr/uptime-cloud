@@ -155,7 +155,7 @@ func pollWebsite(site Website, config *Config) {
     client := &http.Client{
         Timeout: 20 * time.Second,
         Transport: &http.Transport{
-            DisableKeepAlives: false, // Testing
+            DisableKeepAlives: false, // Testing 
             MaxIdleConns:        50,
             MaxIdleConnsPerHost: 2,
             IdleConnTimeout:     90 * time.Second, 
