@@ -8,3 +8,4 @@
 **/*.tfstate.backup
 **/*.tfvars
 **/outputs.json
+**/ecs-task-def.json

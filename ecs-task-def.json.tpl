@@ -30,11 +30,11 @@
       "secrets": [
         {
           "name": "SMTP_USERNAME",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:969288771269:secret:smtp_username-h5cC6t"
+          "valueFrom": "__SMTP_USERNAME_ARN__"
         },
         {
           "name": "SMTP_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:969288771269:secret:smtp_password-vXrmGp"
+          "valueFrom": "__SMTP_PASSWORD_ARN__"
         }
       ],
       "logConfiguration": {

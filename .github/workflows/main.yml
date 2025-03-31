@@ -41,10 +41,31 @@ jobs:
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:${{ steps.extract_version.outputs.VERSION }}
             ${{ steps.login-ecr.outputs.registry }}/uptime-monitor:latest
-      
-      - name: Prepare Task Definition (inject version)
+            
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+          
+      - name: Checkout Terraform Infra Repo
+        uses: actions/checkout@v4
+        with:
+          repository: krstphrrr/terraform-infra
+          token: ${{ secrets.GH_PAT }}
+          path: terraform-infra
+
+      - name: Extract Secrets from Terraform Outputs
+        working-directory: terraform-infra/apps/uptime-monitor-cloud  # Adjust as needed
         run: |
-          sed "s/__VERSION__/${{ steps.extract_version.outputs.VERSION }}/" ecs-task-def.json.tpl > ecs-task-def.json
+          terraform init -input=false
+          echo "SMTP_USERNAME_ARN=$(terraform output -raw smtp_username_secret_arn)" >> $GITHUB_ENV
+          echo "SMTP_PASSWORD_ARN=$(terraform output -raw smtp_password_secret_arn)" >> $GITHUB_ENV
+      
+      - name: Prepare Task Definition (inject secrets and version)
+        run: |
+          sed -e "s|__VERSION__|${{ steps.extract_version.outputs.VERSION }}|" \
+              -e "s|__SMTP_USERNAME_ARN__|$SMTP_USERNAME_ARN|" \
+              -e "s|__SMTP_PASSWORD_ARN__|$SMTP_PASSWORD_ARN|" \
+              ecs-task-def.json.tpl > ecs-task-def.json
+
 
       - name: Update ECS Service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2.3.1
